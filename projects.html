@@ -6,12 +6,12 @@ excerpt: All projects.
 comments: false
 ---
 
-<p>Transformar esforço e criatividade em realidade é algo fantástico.<br />Nesta página estão alguns desses esforços reunidos, onde trabalhei quase sempre de forma coletiva para forjar ideias.</p>
+<p>Turning effort and creativity into reality is something fantastic.<br />On this page are some of those efforts, where I have almost always worked collectively to forge ideas.</p>
 
 {% assign recent_projects = site.projects | where: "recent", true %}
 {% assign old_projects = site.projects | where: "recent", false %}
 
-<h2>Projetos recentes</h2>
+<h2>Recent projects</h2>
 {%- for project in recent_projects -%}
   <article class="post-item">
     <h3 class="post-item-title">
@@ -21,7 +21,7 @@ comments: false
 {%- endfor -%}
 
 {% if old_projects.size > 0 %}
-  <h2>Velhos tempos...</h2>
+  <h2>Old times...</h2>
   {%- for project in old_projects -%}
     <article class="post-item">
       <h3 class="post-item-title">

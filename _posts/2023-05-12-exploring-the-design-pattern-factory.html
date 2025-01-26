@@ -1,0 +1,137 @@
+---
+layout: page
+title: Exploring the Design Pattern - Factory
+description: Welcome devs, to the second post in the Design Patterns in Software Projects series. In this article, we will deepen our knowledge of another widely used design pattern, the Factory design pattern. Like the Adapter, the Factory is a creational design pattern that provides an elegant solution for creating objects in an application.
+tags: python engineering
+categories: posts/dev
+---
+
+<article>
+  <div class="post">
+    {% include shared.html %}
+
+    <h2>Introduction:</h2>
+    <p>
+      Welcome devs to the second post in the Design Patterns in Software
+      Projects series. In this article, we will deepen our knowledge of another
+      widely used design pattern: the Factory design pattern. Like the Adapter,
+      the Factory is a creational design pattern that provides an elegant
+      solution for creating objects in an application. We will explore in detail
+      how this pattern works and discover its various applications in software
+      projects.
+    </p>
+    <p>Check out the list of all posts in the series:</p>
+    <ul>
+      <li>
+        <a href="/design-pattern-adapter/">#1 Design Pattern - Adapter</a>
+      </li>
+      <li>
+        <a href="/exploring-the-design-pattern-factory/"
+          >#2 Exploring the Design Pattern - Factory</a
+        >
+      </li>
+      <li>
+        <a href="/ai-in-knowledge-generation-reflections/"
+          >#3 AI in Knowledge Generation - Reflections</a
+        >
+      </li>
+    </ul>
+
+    <h2>Overview:</h2>
+    <p>
+      The Factory design pattern is used when we need to create objects from the
+      same family but with different implementations, flexibly, and without
+      explicitly specifying the concrete classes. It defines an interface for
+      creating objects, delegating the decision of which concrete object to
+      instantiate to the subclasses.
+    </p>
+
+    <h2>When to use the Factory pattern:</h2>
+    <p>The Factory pattern is useful in various situations, such as:</p>
+
+    <ul>
+      <li>
+        When we want to encapsulate the object creation logic in a specific
+        class, instead of spreading it throughout the application.
+      </li>
+      <li>
+        When we want to create objects from the same family, but with different
+        implementations, transparently to the client.
+      </li>
+      <li>
+        When we want to decouple client code from concrete classes, allowing
+        easy extension and addition of new object types.
+      </li>
+    </ul>
+
+    <h2>How the Factory pattern works:</h2>
+    <p>
+      The Factory pattern is based on a factory method defined in an abstract
+      class or interface. Concrete subclasses are responsible for implementing
+      this method and returning an instance of the desired object. In this way,
+      the client code can use the interface of the abstract class or interface
+      to create objects without knowing the concrete implementations.
+    </p>
+
+    <h2>Example of Factory using Python:</h2>
+    <p>
+      Let's now see a practical example of how we can apply the Factory pattern
+      in an application using Python. Suppose we have a product management
+      system, where we have different types of products (e.g., electronics,
+      furniture, clothing), and each product type has a specific way of being
+      created. We can create an abstract class called ProductFactory that
+      defines the factory_method() responsible for creating the objects. Then,
+      we can implement concrete subclasses of this abstract class for each
+      product type, where each one will implement the factory_method() according
+      to the characteristics of the respective product.
+    </p>
+
+<pre>from abc import ABC, abstractmethod
+
+class ProductFactory(ABC):
+    @abstractmethod
+    def factory_method(self):
+        pass
+
+class ElectronicsFactory(ProductFactory):
+    def factory_method(self):
+        return ElectronicsProduct()
+
+class FurnitureFactory(ProductFactory):
+    def factory_method(self):
+        return FurnitureProduct()
+
+class ClothingFactory(ProductFactory):
+    def factory_method(self):
+        return ClothingProduct()
+
+# Uso do Factory
+electronics = ElectronicsFactory().factory_method()
+furniture = FurnitureFactory().factory_method()
+clothing = ClothingFactory().factory_method()</pre>
+
+    <h2>Conclusion:</h2>
+    <p>
+      The Factory design pattern is a powerful tool for creating objects in an
+      application, providing flexibility and decoupling of the client code. It
+      allows creating objects from the same family transparently, making the
+      code easier to maintain and extend. By applying this pattern correctly, we
+      can achieve more modular, flexible, and maintainable code.
+    </p>
+    <p>
+      I would also love to hear your opinion on this subject, here is my contact
+      on the network
+      <a
+        href="https://app.element.io/#/user/@f0rmig4:matrix.org"
+        alt="matrix f0rmig4"
+        target="_blanck"
+        >matrix</a
+      >, and if you prefer, feel free to send me an email in response to any
+      questions in this post. If you want to encrypt it, here is my
+      <a href="/pgp">pgp key</a>
+    </p>
+    <p>May the force be with you.</p>
+  </div>
+</article>
+
+{% include comments.html %}

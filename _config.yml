@@ -1,18 +1,18 @@
 # Site settings
 title: f0rmig4 # site title
 description: >- # site description
-    tecnologias digitais - software livre - tecnopolítica - sociedade
-lang: en-US # default lang
+    digital technologies - free software - technopolitics - society
+lang: en # default lang
 timezone: Asia/Jakarta # set your timezone
 image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
-repo: https://gitlab.com/f0rmig4/f0rmig4.gitlab.io # site repo [optional]
+repo: https://github.com/f0rmig4/f0rmig4.github.io # site repo [optional]
 mode: dark # default theme "dark" | "light"
 
 # Profile settings
 author:
   name: f0rmig4 # author name
   bio: >- # tell to the world
-    tecnologias digitais - software livre - tecnopolítica - sociedade
+    digital technologies - free software - technopolitics - society
   username: f0rmig4 # general username
   github: f0rmig4 # github username
   twitter: f0rmig4 # twitter username

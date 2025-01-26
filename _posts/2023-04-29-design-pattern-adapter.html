@@ -1,0 +1,77 @@
+---
+layout: page
+title: Design Pattern - Adapter
+description: This is the first post in a series I plan to make about the most common design patterns in software projects. Throughout this series, I will cover various design patterns that can help improve the quality, maintainability, and scalability of a project. Some of the patterns I intend to cover include the Adapter Design Pattern, the Singleton Design Pattern, the Factory Design Pattern, and more. With this, I hope to help those who are starting in the software development field better understand these patterns and how to apply them in their own projects.
+tags: python engineering
+categories: posts/dev
+---
+
+<article>
+   <div class="post">
+      {% include shared.html %}
+
+      <p>This is the first post in a series I plan to make about the most common design patterns in software projects. Throughout this series, I will cover various design patterns that can help improve the quality, maintainability, and scalability of a project. Some of the patterns I intend to cover include the Adapter Design Pattern, the Singleton Design Pattern, the Factory Design Pattern, and more. With this, I hope to help those who are starting in the software development field better understand these patterns and how to apply them in their own projects.</p>
+      <p>Check out the list of all posts in the series:</p>
+      <ul>
+            <li><a href="/design-pattern-adapter/">#1 Design Pattern - Adapter</a></li>
+            <li><a href="/exploring-the-design-pattern-factory/">#2 Exploring the Design Pattern - Factory</a></li>
+            <li><a href="/ai-in-knowledge-generation-reflections/">#3 AI in Knowledge Generation - Reflections</a></li>
+      </ul>
+      
+      <h2>Overview</h2>
+      <p>The Adapter Design Pattern is one of the most popular patterns in software projects. It is an effective solution when we need to integrate components with incompatible interfaces. It acts as an intermediary layer between two different interfaces, allowing them to work together without the need to alter the original source code.</p>
+
+      <p>Let's suppose you're working on a project that involves using two different libraries, each with its own interface. If these two libraries were not designed to work together, you would have an incompatibility problem. This is where the Adapter Design Pattern comes in. By creating an adapter for one of these libraries, you can make it compatible with the other library, without needing to modify the original source code.</p>
+
+      <h2>When do we need an adapter?</h2>
+      <p>For example, imagine you have a user object that was created using a certain library. Now, you need to pass this object to another library, but the interface of this library expects an object with a different structure. Using the Adapter Design Pattern, you can create a class that acts as an intermediary layer between these two libraries, allowing them to work together.</p>
+
+      <p>The Adapter Design Pattern works by creating an intermediary class that bridges the gap between two incompatible interfaces. This class has a method that receives calls from the incompatible interface and converts the data into a form that the compatible interface can understand. The adapter also receives calls from the compatible interface and converts the data back into a form that the incompatible interface can understand.</p>
+
+      <p>An example of the Adapter Design Pattern in Python would be to create a class that implements the incompatible interface, and then create an adapter class that implements the compatible interface and delegates all method calls to the incompatible class, converting input and output parameters as needed.</p>
+
+      <h2>Practice:</h2>
+      <p>Let's assume we have two user classes in an API, one called Usuario and another called User. The Usuario class has the following attributes:</p>
+
+<pre>class Usuario:
+   def __init__(self, nome, email, senha):
+      self.nome = nome
+      self.email = email
+      self.senha = senha</pre>
+
+   <p>While the User class has the following attributes:</p>
+
+<pre>class User:
+   def __init__(self, name, email, password):
+      self.name = name
+      self.email = email
+      self.password = password</pre>
+
+      <p>Notice that both classes have similar attributes, but with different names. If we want to use User objects in a code that expects Usuario objects, we can create an adapter that converts a User object into a Usuario object.</p>
+
+<pre>class UserAdapter(Usuario):
+   def __init__(self, user):
+      self.nome = user.name
+      self.email = user.email
+      self.senha = user.password</pre>
+
+   <p>The UserAdapter adapter class inherits from the Usuario class, but it has a constructor that takes a User object. It then assigns the attribute values from the User object to the corresponding attributes in the Usuario object. Now we can use User objects in code that expects Usuario objects, using the UserAdapter:</p>
+
+<pre>user = User("João", "joao@gmail.com", "1234")
+adapter = UserAdapter(user)
+
+# Now we can use the adapter object as a Usuario object
+print(adapter.nome)  # João
+print(adapter.email)  # joao@gmail.com
+print(adapter.senha)  # 1234</pre>
+
+      <p>In this way, we can use User class objects in a code that expects Usuario class objects, without needing to alter the User class or the class that expects Usuario objects.</p>
+
+      <h2>Conclusion:</h2>
+      <p>In summary, the Adapter Design Pattern is an effective solution for integrating components with incompatible interfaces. It allows you to create an intermediary layer that acts as a bridge between two different interfaces, making them compatible and enabling them to work together. With this, you can save time and effort, without needing to alter the original source code.</p> 
+      <p>May the force be with you.</p>
+
+   </div>
+</article>
+
+{% include comments.html %}

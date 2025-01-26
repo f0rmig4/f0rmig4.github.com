@@ -1,0 +1,70 @@
+---
+layout: page
+title: Explorando o padrão de design - factory
+description: Seja bem-vindo devs, ao segundo post da série Padrões de Design em Projetos de Software. Neste artigo, vamos aprofundar nosso conhecimento em mais um padrão de design amplamente utilizado o padrão de design Factory. Assim como o Adapter, o Factory é um padrão de design criacional que proporciona uma solução elegante para a criação de objetos em uma aplicação.
+tags: python engineering
+categories : posts/dev
+---
+
+<article>
+    <div class="post">
+        {% include shared.html %}
+
+        <h2>Introdução:</h2>
+        <p>Seja bem-vindo devs ao segundo post da série padrões de design em projetos de software. Neste artigo, vamos aprofundar nosso conhecimento em mais um padrão de design amplamente utilizado: o padrão de design Factory. Assim como o Adapter, o Factory é um padrão de design criacional que proporciona uma solução elegante para a criação de objetos em uma aplicação. Vamos explorar em detalhes como esse padrão funciona e descobrir suas diversas aplicações em projetos de software.</p>
+        <p>Confira a lista de todos os posts da série:</p>
+        <ul>
+              <li><a href="/padrao-de-design-adapter/">#1 Padrão de design - adapter</a></li>
+              <li><a href="/explorando-o-padrao-de-design-factory/">#2 Explorando o padrão de design - factory</a></li>
+              <li><a href="/ia-na-geracao-de-conhecimento-reflexoes/">#3 IA na geração de conhecimento - reflexões</a></li>
+        </ul>
+        
+        <h2>Visão geral:</h2>
+        <p>O padrão de design Factory é utilizado quando precisamos criar objetos de uma mesma família, porém com diferentes implementações, de forma flexível e sem a necessidade de especificar explicitamente as classes concretas. Ele define uma interface para a criação de objetos, delegando a decisão sobre qual objeto concreto instanciar para as subclasses.</p>
+
+        <h2>Quando utilizar o padrão Factory:</h2>
+        <p>O padrão Factory é útil em diversas situações, como por exemplo:</p>
+
+        <ul>
+            <li>Quando queremos encapsular a lógica de criação de objetos em uma classe específica, ao invés de espalhá-la por toda a aplicação.</li>
+            <li>Quando desejamos criar objetos de uma mesma família, mas com diferentes implementações, de forma transparente para o cliente.</li>
+            <li>Quando queremos desacoplar o código cliente das classes concretas, permitindo a fácil extensão e adição de novos tipos de objetos.</li>
+        </ul>
+        <h2>Como funciona o padrão Factory:</h2>
+        <p>O padrão Factory é baseado em um método de fábrica (factory method) definido em uma classe abstrata ou interface. As subclasses concretas são responsáveis por implementar esse método e retornar uma instância do objeto desejado. Dessa forma, o código cliente pode utilizar a interface da classe abstrata ou interface para criar objetos sem conhecer as implementações concretas.</p>
+
+        <h2>Exemplo de Factory utilizando a linguagem Python:</h2>
+        <p>Vamos agora ver um exemplo prático de como podemos aplicar o padrão Factory em uma aplicação utilizando a linguagem Python. Suponha que temos um sistema de gerenciamento de produtos, onde temos diferentes tipos de produtos (por exemplo, eletrônicos, móveis, vestuário) e cada tipo de produto possui uma forma específica de criação. Podemos criar uma classe abstrata chamada ProductFactory que define o método factory_method() responsável pela criação dos objetos. Em seguida, podemos implementar subclasses concretas dessa classe abstrata para cada tipo de produto, onde cada uma delas irá implementar o método factory_method() de acordo com as características do respectivo produto.</p>
+
+<pre>from abc import ABC, abstractmethod
+
+class ProductFactory(ABC):
+    @abstractmethod
+    def factory_method(self):
+        pass
+
+class ElectronicsFactory(ProductFactory):
+    def factory_method(self):
+        return ElectronicsProduct()
+
+class FurnitureFactory(ProductFactory):
+    def factory_method(self):
+        return FurnitureProduct()
+
+class ClothingFactory(ProductFactory):
+    def factory_method(self):
+        return ClothingProduct()
+
+# Uso do Factory
+electronics = ElectronicsFactory().factory_method()
+furniture = FurnitureFactory().factory_method()
+clothing = ClothingFactory().factory_method()</pre>
+
+        <h2>Conclusão:</h2>
+        <p>O padrão de design Factory é uma ferramenta poderosa para a criação de objetos em uma aplicação, proporcionando flexibilidade e desacoplamento do código cliente. Ele permite a criação de objetos de uma mesma família de forma transparente, facilitando a manutenção e extensão do código. Ao aplicar esse padrão corretamente, podemos obter um código mais modular, flexível e de fácil manutenção.
+        <p>Gostaria de saber também a sua opinião a respeito desse assunto, fica aqui meu contato na rede <a href="https://app.element.io/#/user/@f0rmig4:matrix.org" alt="matrix f0rmig4" target="_blanck">matrix</a> e/ou se preferir sinta-se à vontade para me enviar um e-mail em resposta a qualquer questão nesse post. Se você quiser criptografá-lo, aqui está minha <a href="/pgp">chave pgp</a></p>
+        <p>Que a força esteja com você.</p>
+    </div>
+</article>
+
+{% include comments.html %}

@@ -1,0 +1,216 @@
+---
+layout: page
+title: Como gerenciar suas chaves PGP
+description: Esse é o segundo post da série "criptografando mensagens com gpg", nesse artigo darei os passos de como criar e gerenciar suas chaves PGP.
+tags: safety privacity
+categories : posts/privacity
+---
+
+<article>
+   <div class="post">
+      {% include shared.html %}
+
+      <p>Buenas povo dessa realidade virtual, esse é o segundo post da série <strong>"criptografando mensagens com gpg"</strong>, nesse artigo darei os passos de como criar e gerenciar suas chaves PGP e por fim configurar seu cliente de email Neomutt.</p>
+      <p>Confira a lista de todos os posts da série:</p>
+      <ul>
+            <li><a href="/neommut-configurando-cliente-de-email-por-linha-de-comando/">#1 Neommut - Configurando cliente de email por linha de comando</a></li>
+            <li><a href="/como-gerenciar-suas-chaves-pgp/">#2 Como gerenciar suas chaves PGP</a></li>
+            <li><a href="/como-criptografar-descriptografar-arquivos-de-texto-com-pgp/">#3 Como criptografar/descriptografar arquivos de texto com pgp</a></li>
+      </ul>
+      <p>O PGP (Pretty Good Privacy) é um método comprovado de proteção da comunicação por e-mail com criptografia de ponta a ponta (que impede que e-mails sejam lidos por terceiros, incluindo seu provedor de e-mail). Historicamente, o PGP era difícil de usar, e impossível para a maioria dos usuários configurar e usar regularmente para suas próprias comunicações por e-mail, entretanto hoje a maioria de ferramentas de envio de email já ofertam suporte nativo, este post resume rapidamente como usar o PGP.</p>
+      <p>Presumo aqui que você estará usando GPG na linha de comando Linux. Se você estiver em outro sistema operacional então seria uma boa oportunidade para utilizar um SO livre, não proprietário e mantido por uma grande comunidade vibrante.</p>
+      <p>PGP funciona gerando um par de chaves: uma chave pública e uma chave privada. A chave pública pode ser distribuída a qualquer pessoa que queira lhe enviar uma mensagem e é usada para criptografar uma mensagem que só pode ser descriptografada por você. A chave privada é mantida em segredo sendo usada para decifrar, logo nunca compartilhe sua chave privada.</p>
+
+      <p>Para iniciarmos, teste no seu terminar o help do GPG</p>
+      <pre>$ gpg --help</pre>
+
+      <h2>Criando suas chaves</h2>
+
+      <p>Para criar um par de chaves é bem simples basta rodar o comando gpg --full-generate-key e logo seguir as instruções. Você pode aceitar o padrão para a maioria das configurações. Um ponto de atenção é a data de expiração, uma sugestão é fixar uma data de validade de 2 anos, dessa forma quando ela expirar seus contatos saberão que não poderá mais usa-la.</p>
+
+<pre>$ gpg --full-generate-key
+
+gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+(14) Existing key from card
+Your selection? 1
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (3072) 4096
+Requested keysize is 4096 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 2y
+Key expires at qua 15 nov 2023 10:39:37 -03
+Is this correct? (y/N) y
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: nickname
+Email address: nickname@mail.com
+Comment:
+You selected this USER-ID:
+   "nickname <nickname@mail.com>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: key B7E2866630FEA649 marked as ultimately trusted
+gpg: revocation certificate stored as '/home/f0rmig4/.gnupg/openpgp-revocs.d/947D213ED162C532704CC809B7E2866630FEA649.rev'
+public and secret key created and signed.
+
+pub   rsa4096 2021-11-15 [SC] [expires: 2023-11-15]
+      947D213ED162C532704CC809B7E2866630FEA649
+uid                      nickname <nickname@mail.com>
+sub   rsa4096 2021-11-15 [E] [expires: 2023-11-15]</pre>
+
+
+      <h2>Gerando sua chave publica "ascii armored"</h2>
+      <p>Normalmente as pessoas compartilham sua chave na forma chamada "ascii armored", como fiz no meu <a href="/pgp">blog</a>. Para gerar a sua ascii usaremos o parâmetro --export --armor e seu e-mail usado no passo anterior.</p>
+
+<pre>$ gpg --export --armor nickname@mail.com > nickexample.gpg.pub
+$ ls -la
+$ cat nickexample.gpg.pub</pre>
+
+      <p>Pronto, você já pode compartilhar esse arquivo com seus contatos.</p>
+
+      <h2>Editando a data de expiração da sua chave</h2>
+
+      <p>Para listar todas as chaves GPG que consta na sua maquina podemos usar o comando:</p>
+
+<pre>$ gpg --list-keys
+/home/f0rmig4/.gnupg/pubring.kbx
+--------------------------------
+
+pub   rsa4096 2021-11-15 [SC] [expires: 2023-11-15]
+      947D213ED162C532704CC809B7E2866630FEA649
+uid           [ultimate] nickname <nickname@mail.com>
+sub   rsa4096 2021-11-15 [E] [expires: 2023-11-15]</pre>
+
+
+      <p>Podemos analisar que a nossa chave de exemplo será expirada em 2023-11-15, agora vamos editar:</p>
+
+<pre>$ gpg --edit-key nickname@mail.com
+
+gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa4096/B7E2866630FEA649
+   created: 2021-11-15  expires: 2023-11-15  usage: SC  
+   trust: ultimate      validity: ultimate
+ssb  rsa4096/EB7603C0DC505FC3
+   created: 2021-11-15  expires: 2023-11-15  usage: E   
+[ultimate] (1). nickname <nickname@mail.com></pre>
+
+
+      <p>Abrirá o comand line gpg, podemos listas as configurações da nossa chave:</p>
+
+<pre>gpg> list
+
+sec  rsa4096/B7E2866630FEA649
+   created: 2021-11-15  expires: 2023-11-15  usage: SC  
+   trust: ultimate      validity: ultimate
+ssb  rsa4096/EB7603C0DC505FC3
+   created: 2021-11-15  expires: 2023-11-15  usage: E   
+[ultimate] (1). nickname <nickname@mail.com></pre>
+
+
+      <p>Para alterar a data de expiração basta rodar o comando abaixo e informar qual sera a nova data de expiração.</p>
+
+<pre>gpg> expire
+Changing expiration time for the primary key.
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 3y
+Key expires at qui 14 nov 2024 11:06:12 -03
+Is this correct? (y/N) y
+
+sec  rsa4096/B7E2866630FEA649
+   created: 2021-11-15  expires: 2024-11-14  usage: SC  
+   trust: ultimate      validity: ultimate
+ssb  rsa4096/EB7603C0DC505FC3
+   created: 2021-11-15  expires: 2023-11-15  usage: E   
+[ultimate] (1). nickname <nickname@mail.com></pre>
+
+
+      <h2>Alterando a senha da sua chave</h2>
+      <p>Digamos que você ainda queira alterar a sua senha, é bem simples:</p>
+
+<pre>$ gpg --passwd nickname@mail.com
+gpg (GnuPG) 2.2.19; Copyright (C) 2019 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.</pre>
+
+      <h2>Deletando uma chave</h2>
+
+<pre>$ gpg --delete-secret-keys nickname@mail.com
+$ gpg --delete-key nickname@mail.com
+$ gpg --list-keys</pre>
+
+      <h2>Integrando o Neomutt</h2>
+      
+      <p>Acabei escolhendo uma forma não tão simples para gerir meu correio eletrônico, um cliente de e-mail baseado em linha de comando, o Neomut. É claro que você não precisa seguir o mesmo caminho, atualmente a maioria dos clientes de e-mail já trabalha com criação e gerenciamento de chaves PGP, sendo possível gerenciar as chaves visualmente.</p>
+      <p>O NeoMutt tem suporte nativo para o uso da criptografia PGP, precisamos apenas que o NeoMutt use o gpgme, que é a biblioteca padrão do GPG.</p>
+      <p>Portanto, em meu arquivo neomuttrc eu configurei:</p>
+
+      <pre>set crypt_use_gpgme=yes</pre>
+
+      <p>Para assinar seu e-mail por padrão, você pode definir:</p>
+
+      <pre>set crypt_autosign</pre>
+
+      <p>Ao ter escrito um e-mail, você pode pressionar "p" para abrir todas as opções de criptografia.</p>
+
+      <h2>Rede de confiança</h2>
+
+      <p>Você precisa validar e se assegurar que a chave publica de seu novo contato é dele mesmo ou se é de alguém que tenta se passar por ele. Essa é a segurança adicional, manter e criar uma rede de confiança.</p>
+      <p>Para verificar manualmente a veracidade da chave, você pode se encontrar em uma videoconferência ou comunicador com o seu contato.</p>
+      <p>Construir uma teia de confiança é uma prática comum. No entanto, isto exige que as pessoas não assinem chaves sem pensar! Se você gosta da "filosofia GPG", isso lhe dá alguma responsabilidade para mantê-la também.</p>
+      <p>Você pode assinar uma chave com o comando:</p>
+
+      <pre>$ gpg --sign-key [hash of the key here].</pre>
+
+      <p>Para importar uma chave, use o comando:</p>
+
+      <pre>$ gpg --import [keyfile]</pre>
+
+      <p>Tente verificar a <a href="/pgp">minha chave!</a></p>
+
+      <h2>Quando devo usar?</h2>
+      <p>Então, o que você pode fazer com essa chave? Pode ser aplicado em pelo menos dois casos de uso:</p>
+
+      <p>1) Criptografar suas mensagens de e-mail;</p>
+      <p>2) Criptografar arquivos de mensagem textos.</p>
+
+      <p>Se você quiser me escrever um e-mail, você tem que encriptar o e-mail com minha chave pública. Então posso decifrá-lo com minha chave privada. Se você quiser que eu responda a você, você precisa disponibilizar sua chave pública para eu poder efetuar o mesmo.</p>
+
+      <p>Nos próximos post vou trazer um passo a passo de <a href="/como-criptografar-descriptografar-arquivos-de-texto-com-pgp/">
+            como criptografar/descriptografar arquivos de texto com pgp.</a></p>
+      <p>Seguimos caminhando e que a força esteja com você.</p>
+   </div>
+</article>
+
+{% include comments.html %}

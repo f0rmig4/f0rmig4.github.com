@@ -1,0 +1,61 @@
+---
+layout: page
+title: Simplificando o Git com Git alias
+description: Hoje vou compartilhar alguns "alias" de comandos Git que utilizo no meu dia-a-dia. Essa dica irá te ajudar a simplificar comandos longos que têm muitas opções, tornando-os mais curtos, mais fácil de memorizar e consequentemente seu dia mais produtivo e feliz.
+tags: git
+categories : posts/dev
+---
+
+<article>
+   <div class="post">
+      {% include shared.html %}
+      <p>Hoje vou compartilhar alguns "alias" de comandos Git que utilizo no meu dia-a-dia. Essa dica irá te ajudar a simplificar comandos longos que têm muitas opções, tornando-os mais curtos, mais fácil de memorizar e consequentemente seu dia mais produtivo e feliz.</p>
+
+      <h2>Como definir e usar alias:</h2>
+      <p>Para definir seus "alias" Git, eu sugiro alterar diretamente no arquivo de configuração Git:</p>
+
+      <pre>$ vi ~/.gitconfig</pre>
+
+      <p>Agora basta incluir seus "alias" nessa sessão. Para exemplificar vamos criar um "alias" para validar o status do repositório (git status)</p>
+
+<pre>[alias]
+      s=status</pre>
+
+      <p>Vamos validar o "alias" , vá o seu terminal e digite:</p>
+
+<pre>$ git s
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean</pre>
+
+      <h2>Listando seus alias</h2>
+      <p>Para listar todos os seus "alias" basta rodar o comando:</p>
+
+<pre>$ git config --global -l
+user.name=f0rmig4
+user.email=f0rmig4@mail.com
+core.editor=vim</pre>
+
+      <h2>Minha lista de alias</h2>
+      <p>Vou listar aqui meus "alias" , copie, cole, compartilhe =)</p>
+
+<pre>[alias]
+         a=add
+         s=status
+         c=checkout
+         l=checkout --
+         b=checkout -b
+         co=commit
+         p=push
+         m=merge
+         unstage=reset HEAD --
+         find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep</pre>
+
+      <p>Git alias é um recurso muito útil para otimizarmos comandos comuns e repetitivos. Git permite que você defina quantos "alias" for necessário. Mas cuidado, definir muitos "alias" pode dificultar memoriza-los.</p>
+      <p>Caso tenha interesse em ver alguns "alias" de nível "hard" confira esse <a href="https://git.wiki.kernel.org/index.php/Aliases" target="_blanck">link</a></p>
+      <p>Que a força esteja com você.</p>
+   </div>
+</article>
+
+{% include comments.html %}

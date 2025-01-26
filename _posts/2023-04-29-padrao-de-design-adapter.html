@@ -1,0 +1,77 @@
+---
+layout: page
+title: Padrão de design - adapter
+description: Esse é o primeiro de uma série de posts que pretendo fazer a respeito dos padrões de design mais comuns em projetos de software. Ao longo dessa série, vou abordar diversos padrões de design que podem ajudar a melhorar a qualidade, a manutenibilidade e a escalabilidade de um projeto. Alguns dos padrões que pretendo abordar incluem o padrão de Design Adapter, o padrão de Design Singleton, o padrão de Design Factory, entre outros. Com isso, espero ajudar aqueles que estão iniciando na área de desenvolvimento de software a entender melhor esses padrões e como aplicá-los em seus próprios projetos.
+tags: python engineering
+categories : posts/dev
+---
+
+<article>
+   <div class="post">
+      {% include shared.html %}
+
+      <p>Esse é o primeiro de uma série de posts que pretendo fazer a respeito dos padrões de design mais comuns em projetos de software. Ao longo dessa série, vou abordar diversos padrões de design que podem ajudar a melhorar a qualidade, a manutenibilidade e a escalabilidade de um projeto. Alguns dos padrões que pretendo abordar incluem o padrão de Design Adapter, o padrão de Design Singleton, o padrão de Design Factory, entre outros. Com isso, espero ajudar aqueles que estão iniciando na área de desenvolvimento de software a entender melhor esses padrões e como aplicá-los em seus próprios projetos.</p>
+      <p>Confira a lista de todos os posts da série:</p>
+      <ul>
+            <li><a href="/padrao-de-design-adapter/">#1 Padrão de design - adapter</a></li>
+            <li><a href="/explorando-o-padrao-de-design-factory/">#2 Explorando o padrão de design - factory</a></li>
+            <li><a href="/ia-na-geracao-de-conhecimento-reflexoes/">#3 IA na geração de conhecimento - reflexões</a></li>
+      </ul>
+      
+      <h2>Visão Geral</h2>
+      <p>O Padrão de Design Adapter é um dos padrões mais populares em projetos de software. É uma solução eficaz quando precisamos integrar componentes que possuem interfaces incompatíveis. Ele atua como uma camada intermediária entre duas interfaces diferentes, permitindo que essas interfaces trabalhem juntas sem a necessidade de alterar o código fonte original.</p>
+
+      <p>Vamos supor que você esteja trabalhando em um projeto que envolve o uso de duas bibliotecas diferentes, cada uma com sua própria interface. Se essas duas bibliotecas não foram projetadas para trabalhar juntas, você teria um problema de incompatibilidade. É aqui que entra o Padrão de Design Adapter. Ao criar um adapter para uma dessas bibliotecas, você pode torná-la compatível com a outra biblioteca, sem precisar alterar o código fonte original.</p>
+
+      <h2>Quando precisamos do adapter?</h2>
+      <p>Por exemplo, imagine que você tem um objeto usuário que foi criado usando uma determinada biblioteca. Agora, você precisa passar esse objeto para outra biblioteca, mas a interface dessa biblioteca espera um objeto com uma estrutura diferente. Usando o Padrão de Design Adapter, você pode criar uma classe que atue como uma camada intermediária entre essas duas bibliotecas, permitindo que elas trabalhem juntas.</p>
+
+      <p>O Padrão de Design Adapter funciona criando uma classe intermediária que faz a ponte entre duas interfaces incompatíveis. Essa classe possui um método que recebe chamadas da interface incompatível e converte os dados para uma forma que a interface compatível possa entender. O adapter também recebe chamadas da interface compatível e converte os dados de volta para uma forma que a interface incompatível possa entender.</p>
+
+      <p>Um exemplo de Padrão de Design Adapter em Python seria criar uma classe que implementa a interface incompatível e, em seguida, criar uma classe de adapter que implementa a interface compatível e delega todas as chamadas de método para a classe incompatível, convertendo os parâmetros de entrada e saída conforme necessário.</p>
+
+      <h2>Prática:</h2>
+      <p>Vamos supor que temos duas classes de usuários em uma API, uma chamada Usuario e outra chamada User. A classe Usuario possui os seguintes atributos:</p>
+
+<pre>class Usuario:
+   def __init__(self, nome, email, senha):
+      self.nome = nome
+      self.email = email
+      self.senha = senha</pre>
+
+   <p>Enquanto a classe User possui os seguintes atributos:</p>
+
+<pre>class User:
+   def __init__(self, name, email, password):
+      self.name = name
+      self.email = email
+      self.password = password</pre>
+
+      <p>Observe que as duas classes têm atributos semelhantes, mas com nomes diferentes. Se quisermos usar objetos da classe User em um código que espera objetos da classe Usuario, podemos criar um adapter que converta um objeto User em um objeto Usuario.</p>
+
+<pre>class UserAdapter(Usuario):
+   def __init__(self, user):
+      self.nome = user.name
+      self.email = user.email
+      self.senha = user.password</pre>
+
+   <p>O adapter UserAdapter herda da classe Usuario, mas tem um construtor que recebe um objeto User. Em seguida, ele atribui os valores dos atributos do objeto User aos atributos correspondentes do objeto Usuario. Agora podemos usar objetos User em um código que espera objetos Usuario, usando o adapter UserAdapter:</p>
+
+<pre>user = User("João", "joao@gmail.com", "1234")
+adapter = UserAdapter(user)
+
+# Agora podemos usar o objeto adapter como um objeto Usuario
+print(adapter.nome)  # João
+print(adapter.email)  # joao@gmail.com
+print(adapter.senha)  # 1234</pre>
+
+      <p>Dessa forma, podemos usar objetos da classe User em um código que espera objetos da classe Usuario, sem precisar alterar o código da classe User ou da classe que espera objetos Usuario.</p>
+
+      <h2>Conclusão:</h2>
+      <p>Em resumo, o Padrão de Design Adapter é uma solução eficaz para integrar componentes que possuem interfaces incompatíveis. Ele permite que você crie uma camada intermediária que atua como uma ponte entre duas interfaces diferentes, tornando-as compatíveis e permitindo que trabalhem juntas. Com isso, você pode economizar tempo e esforço, sem precisar alterar o código fonte original.</p> 
+      <p>Que a força esteja com você.</p>
+
+   </div>
+</article>
+
+{% include comments.html %}

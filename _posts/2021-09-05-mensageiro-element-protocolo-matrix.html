@@ -1,0 +1,66 @@
+---
+layout: page
+title: O mensageiro Element e o protocolo Matrix
+description: Não é nenhuma novidade que os principais comunicadores utilizam nossos dados e informações pessoais para gerar necessidade de consumo, lucro e até mesmo guerras e crises políticas.
+tags: safety privacity society tools
+categories : posts/privacity
+authors:
+- f0rmig4
+- guest_42
+---
+
+<article>
+   <div class="post">
+      {% include shared.html %}
+
+      <p>Não é nenhuma novidade que os principais <a href="https://pt.wikipedia.org/wiki/Bloqueio_do_WhatsApp_no_Brasil">comunicadores</a> utilizam nossos dados e informações pessoais para gerar necessidade de consumo, lucro e até mesmo guerras e <a href="https://pt.wikipedia.org/wiki/Cambridge_Analytica">crises políticas</a>. Tudo que fazemos na internet está sendo assistido e rastreado, cada ação é cuidadosamente monitorada e registrada. Mesmo ainda tendo essa consciência, torna-se difícil optar por alternativas que respeitam a privacidade ou que atendam às nossas reais necessidades.</p>
+      <p>Somos reféns dessas plataformas muradas que são avaliadas pela quantidade de pessoas e dados que eles podem explorar dentro de seus próprios muros. Para piorar, com o fim da neutralidade da rede, as companhias telefônicas passaram a oferecer planos que favorecem essas plataformas em detrimento de outras, mas isso é um outro papo. O protocolo [Matrix] está se destacando por ser um padrão aberto, com uma vibrante comunidade open-source, seguro, que respeita a privacidade, permite criar uma rede descentralizada e que se diferencia pela construção de pontes (Bridges) com outras plataformas de comunicação.</p>
+      <p>A interoperabilidade com outros provedores de comunicação é o grande diferencial, e por isso nós do <a href="https://matehackers.org/">Matehackers</a> estamos experimentando novas ferramentas de comunicação que usam esse protocolo. Vamos construir essa ponte com o nosso canal do Telegram e ainda queremos montar um servidor próprio para a comunidade geral. Nesse post vou falar do <a href="https://element.io">element.io</a>, o aplicativo referência da [Matrix].</p>
+
+      <h2>O que é Matrix ?</h2>
+      <p>Matrix é um protocolo de código aberto desenvolvido em 2014 por uma equipe que trabalhava para a Amdocs - uma empresa de comunicação israelense. O padrão é baseado em HTTP (para facilitar as mensagens) e WebRTC (para facilitar as chamadas de voz). Funciona em um modelo descentralizado com qualquer cliente compatível.</p>
+      <p>Isso significa que você alterna entre diferentes aplicativos sem ter que desistir dos principais benefícios padrões.</p>
+      <p>Além do mais, o Matrix oferece suporte à criptografia de ponta a ponta com base em um mecanismo de código aberto que funciona com salas que hospedam milhares de usuários. Isso contrasta com os canais públicos hospedados no Viber e no Telegram.</p>
+      <p>Para conectar-se a outros aplicativos, como Slack, Discord, IRC, WhatsApp e Telegram, o Matrix tem algo chamado Bridges. Esses são plugins de código aberto que permitem a comunicação com outros aplicativos.</p>
+
+      <h2>O que é Element ?</h2>
+      <p>É um software livre de mensageria instantâneas para texto, voz e vídeo, de código aberto, baseado no protocolo Matrix. Além disso, a ferramenta possui um protocolo federado, que permite ao usuário escolher qualquer servidor Matrix para se conectar, se baseando na licença Apache2.</p>
+      <p>Por apresentar o código aberto, esta plataforma permite que os usuários utilizem o software para qualquer propósito; para unificar, distribuir, modificar e compartilhar versões modificadas do software. Sendo assim, é possível a instalação da ferramenta em qualquer servidor de seu domínio</p>
+      <p>Com a capacidade de fazer ponte entre diferentes aplicativos como o Slack diretamente na interface do Element, você não precisa mais instalar e manter uma dezena de aplicativos para se comunicar.</p>
+      <p>Você entendeu a ideia? Crie uma conta, ative as integrações necessárias e converse com qualquer pessoa, em qualquer lugar e em qualquer número de plataformas diferentes.</p>
+
+      <h2>Quem pode usar?</h2>
+      <p>Qualquer pessoa pode usar, por dispor uma ótima usabilidade, está disponível para os principais navegadores web e também para smartphones Android, iOS e computadores Mac e Windows.</p>
+
+      <h2>Como criar sua conta no Element?</h2>
+      <p>Para este guia, vou mostrar como é simples você criar sua conta em 3 passos:</p>
+         
+      <p><strong>1 - </strong>Acesse o cliente web:</p>
+      <p>Portanto, abra seu navegador favorito, como o Mozilla Firefox, e navegue até <a href="https://app.element.io">app.element.io</a></p>
+      <p><strong>2 - </strong>Clique em "Create Account". <a href="/assets/img/posts/2021/09/1.png" target="_blanck">Print 01</a></p>
+      <p><strong>3 -</strong> Depois basta manter selecionado matrix.org e informar seus dados. <a href="/assets/img/posts/2021/09/2.png" target="_blanck">Print 02</a></p>
+
+      <h2>Dados do projeto no Github</h2>
+      <p>Sempre quando vamos adotar algum software livre para solucionar algum problema real, é importante analisar seus dados e suas interações de manutenção do projeto pela comunidade. Abaixo trago alguns dados atuais do projeto no GitHub:</p>
+
+      <ul>
+         <li><a href="https://github.com/vector-im/element-web">Element Web</a> - Stars: 7K+ Issues: 5k+ Pull Request: 22 Contributors: + 431</li>
+         <li><a href="https://github.com/vector-im/element-ios">Element iOS</a> - Stars: 1k+ Issues: 1.3k+ Pull Request: 25 Contributors: + 113</li>
+         <li><a href="https://github.com/vector-im/element-android/">Element Android</a> - Stars: 1.4k - Issues: 1.3k+ - Pull Request: 30 Contributors: + 222</li>
+      </ul>
+
+      <h2>Conclusão</h2>
+
+      <p>Em tempos onde cada computador pessoal e smartfones são olhos e ouvidos para governos e grandes corporações devemos utilizar e perpetuar o uso de ferramentas que garantam um direito básico de privacidade dos dados pessoais.</p>
+      <p>O que você achou desse post? Conhece ou já usou algum outro <a href="https://matrix.org/clients/">Client da Matrix</a>, tem interesse em outras alternativas, como <a href="https://delta.chat/pt/">Delta Chat</a>, <a href="https://play.google.com/store/apps/details?id=org.briarproject.briar.android">Briar</a>, ou quer saber mais sobre privacidade, criptografia, metadados. Comente o que achou e procure conhecer mais sobre as iniciativas do hackerspace <a href="https://matehackers.org/">Matehackers</a>.</p>
+      <p>Que a força esteja com você!</p>
+
+      <h2>Referências:</h2>
+      <ul>
+         <li><a href="https://element.io/">https://element.io/</a></li>
+         <li><a href="https://escolhalivre.org.br/">https://escolhalivre.org.br/</a></li>
+      </ul>
+   </div>
+</article>
+
+{% include comments.html %}

@@ -1,0 +1,102 @@
+---
+layout: page
+title: Neommut - Configurando cliente de email por linha de comando
+description: Esse é o primeiro post da série "criptografando mensagens com gpg", nessa série veremos como enviar mensagens criptografadas de duas formas, via e-mail e via arquivo.
+tags: safety privacity tools
+categories : posts/privacity
+---
+
+<article>
+   <div class="post">
+      {% include shared.html %}
+
+      <p>Esse é o primeiro post da série <strong>"criptografando mensagens com gpg"</strong>, nessa série veremos como enviar mensagens criptografadas de duas formas, via e-mail e via arquivo.</p>
+      <p>Confira a lista de todos os posts da série:</p>
+      <ul>
+            <li><a href="/neommut-configurando-cliente-de-email-por-linha-de-comando/">#1 Neommut - Configurando cliente de email por linha de comando</a></li>
+            <li><a href="/como-gerenciar-suas-chaves-pgp/">#2 Como gerenciar suas chaves PGP</a></li>
+            <li><a href="/como-criptografar-descriptografar-arquivos-de-texto-com-pgp/">#3 Como criptografar/descriptografar arquivos de texto com pgp</a></li>
+      </ul>
+      <h2>Introdução</h2>
+      <p>Para iniciar essa pequena jornada vamos conhecer um pouco do <a href="https://neomutt.org/" target="_blanck">neomutt</a> que é um cliente de email por linha de comando, com ele gerenciamos nossos e-mails de maneira "raiz", via terminal.</p>
+      <p>"Todos os clientes de e-mail são uma porcaria, este é uma porcaria menor" Citação do desenvolvedor líder do projeto. A verificação de e-mail requer um front-end baseado na web ou um cliente de e-mail separado, estes requerem ambientes gráficos, com poucas exceções, o neomutt é uma dessas exceções.</p>
+
+      <h2>Instalação</h2>
+      <p>Na página de download do <a href="https://neomutt.org/distro" target="_blanck">projeto</a> tem a lista de distribuições suportadas. Supondo que você esteja utilizando uma distribuição baseada em Debian, para instalar basta rodar apenas um comando:</p>
+
+      <pre>$ sudo apt install neomutt</pre>
+
+      <h2>Configuração:</h2>
+      <p>Para definir as configurações básicas do neomutt criaremos um arquivo chamado "muttrc". Vou criar meu muttrc em ~/.config/ pois é onde a maioria dos programas armazena seus arquivos de configuração.</p>
+
+<pre>$ mkdir ~/.config/mutt/
+$ vi ~/.config/mutt/muttrc</pre>
+      
+<pre># setup imap and smtp server information
+set folder = "imaps://f0rmig4@mail.riseup.net:993"
+set smtp_url = "smtp://f0rmig4@mail.riseup.net:587"
+
+# sending
+set from = "f0rmig4@riseup.net"
+set realname = "f0rmig4"
+
+# mailboxes
+set spoolfile = "+INBOX"
+set record = "+Sent"
+set trash = "+Trash"
+set postponed = "+Drafts"
+
+mailboxes =INBOX =Sent =Trash =Drafts =Junk =Other
+
+# editor
+set editor = "vim"
+
+# sidebar
+set sidebar_visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats
+
+# order of the mailing list
+set sort = "threads"
+set sort_aux = "reverse-last-date-received"
+
+# fetch new mail
+bind index G imap-fetch-mail</pre>
+
+      <p>Separei o arquivo de configurações por comentários para facilitar o entendimento. O neomutt é muito versátil, possibilitando uma série de customizações.</p>
+
+      <h2>Primeiro acesso</h2>
+      <p>Pronto, após criar o arquivo com a configuração básica você pode ir no seu terminal e abrir a ferramenta com o comando:</p>
+
+      <pre>$ neomutt</pre>
+
+      <p>Veremos uma solicitação de senha durante o processo, caso contrário, veremos se há alguma mensagem de erro e verificaremos duas vezes o arquivo de configuração.</p>
+
+      <p>Agora entramos na tela inicial: <a href="/assets/img/posts/2021/11/01.png" target="_blanck">print 01</a>
+
+      <h2>Comandos Básicos de navegação</h2>
+      <p>Para poder checar os e-mails e navegar nas funcionalidades é preciso um pouco de prática, a baixo trago alguns comandos básicos:</p>
+
+      <p>"j" move para a próxima linha de e-mail;</p>
+      <p>"k" move para a linha de e-mail anterior;</p>
+      <p>"space" para ler o email;</p>
+      <p>"q" para voltar a tela inicial;</p>
+      <p>"c" seguido de "?" para navegar no sidebar e a tecla "enter" para selecionar a opção.</p>
+
+      <h2>Como enviar um e-mail:</h2>
+
+      <p>Pressione "m" na tela inicial.</p>
+      <p>No canto inferior esquerdo aparece um prompt mostrando "To:", digite o endereço de e-mail do destinatário e pressione "enter".</p>
+      <p>Digite o título do e-mail no prompt "Subject:".</p>
+      <p>Agora o neomutt deve invocar o editor vim que foi o editor que setamos no nosso muttrc, digite sua mensagem, salve e saia.</p>
+      <p>Estamos agora de volta ao neomutt, como sugerido no menu superior, pressione "y" para enviar imediatamente.</p>
+
+      <h2>Como responder um e-mail:</h2>
+      <p>Para responder, selecione um e-mail desejado e pressione a tecla "r" em seguida siga os mesmo passos do envio de e-mail;</p>
+
+      <p>No próximo post quero trazer um guia de <a href="/como-gerenciar-suas-chaves-pgp/">como gerenciar suas chaves pgp</a>.</p>
+      <p>Seguimos caminhando e que a força esteja com você.</p>
+   </div>
+</article>
+
+{% include comments.html %}

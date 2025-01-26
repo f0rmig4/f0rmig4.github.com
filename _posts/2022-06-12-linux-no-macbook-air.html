@@ -1,0 +1,30 @@
+---
+layout: page
+title: Saga na busca por uma distro Linux para meu MacBook Air
+description: Recentemente voltei a ser um operário autônomo do setor de tecnologia e me vi sem máquina de trabalho e sem dinheiro para investir em uma. A única ferramenta que tinha disponível em casa era meu velho MacBook Air Yosemite. Voltar a usar qualquer categoria de sistema operacional proprietário não seria uma opção, a única solução viável era instalar uma distribuição Linux que tivesse boa performance na máquina Apple.
+tags: tips
+categories: posts/dev
+---
+
+<article>
+   <div class="post">
+      {% include shared.html %}
+      <p>Recentemente voltei a ser um operário autônomo do setor de tecnologia e me vi sem máquina de trabalho e sem dinheiro para investir em uma. A única ferramenta que tinha disponível em casa era meu velho MacBook Air Yosemite. Voltar a usar qualquer categoria de sistema operacional proprietário não seria uma opção, a única solução viável era instalar uma distribuição Linux que tivesse boa performance em um MacBook Air 2012, com processador i3 e 4GB de memória.</p>
+      <p>Meu primeiro impulso foi instalar o <strong>Linux Mint Xfce</strong> por ser leve e baseado em Debian e usei este sistema em torno de 2 semanas de trabalho - vale ressaltar que sou um desenvolvedor de software que basicamente uso na minha máquina Docker, Firefox e o editor VS Code. O Mint não se adequou nada bem a minha máquina chegando a consumir > 50% de memória ram alocada apenas para o sistema operacional. O resultado foi ter que reiniciar a máquina a cada duas horas, pois além de travar ainda super aquecia.</p>
+      <p>Levei tempo para buscar uma alternativa, então comecei a ler publicações de outros usuários que compartilhavam suas experiências de Linux com MacBook Air e cheguei ao <a href="https://llsaboya.com/p/qual-melhor-linux-para-macbook-air-antigo/" target="_blank">artigo</a> do Lefebvre Saboya que depois de realizar diversos testes optou pela distribuição <strong>Manjaro Budgie</strong>. Preparei meu pendrive e pedi a Pachamama para me guiar nessa instalação baseada em Arch Linux. Uma semana se passou do uso desta nova distribuição e tive resultados inferiores a do Mint, pois a todo momento tinha que cuidar da quantidade de abas e aplicativos abertos.</p>
+      <p>Precisei fazer mais um teste e já estava cansado de aos finais de semana ter que instalar distribuições Linux e configurar o ambiente de trabalho de desenvolvimento. Fui mais fundo, li mais artigos e cheguei na distribuição <strong>MX Linux 21 Fluxbox</strong>.</p>
+      <p>FluxBox foi desenvolvido usando C++ e iniciado como um fork do BlackBox. O principal objetivo deste gerenciador de janelas é fornecer uma interface leve facilmente usada em sistemas antigos sem consumir muita memória e espaço no disco rígido. Todas as configurações básicas do FluxBox podem ser controladas usando os arquivos de texto. Podemos personalizar várias funções do Flubbox usando seus arquivos de configuração que residem no diretório inicial do usuário na pasta .fluxbox. Vários arquivos estão disponíveis nesta pasta, como atalhos de teclado .fluxbox/keys, layout de menu .fluxbox/menu, tudo o que é executado na inicialização está em .fluxbox/startup e o arquivo de configuração do Fluxbox está em .fluxbox/init.</p>
+      <p>Para mim, foi a melhor alternativa que se apresentou na prática. Hoje consigo trabalhar sem ter que me preocupar com o número de abas do meu navegador nem com a quantidade de aplicações abertas.</p>         
+      <p>É uma dica bem específica, mas quis compartilhar aqui nessa plataforma pois talvez possa ajudar alguém nesse desafio.</p>
+      <p>Que a força esteja com você.</p>
+   </div>
+</article>
+
+{% include comments.html %}
+      
+      
+      
+      
+
+
+

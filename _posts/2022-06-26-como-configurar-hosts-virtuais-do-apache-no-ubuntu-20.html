@@ -1,0 +1,111 @@
+---
+layout: page
+title: Como configurar hosts virtuais do Apache no Ubuntu 20
+description: Este post irá guiá-lo à configurar vários domínios e sites no seu ambiente local usando hosts virtuais do Apache em um servidor Ubuntu 20. O objetivo final é termos dois domínios locais
+tags: linux unix architecture
+categories: posts/dev
+---
+
+<article>
+   <div class="post">
+      {% include shared.html %}
+      <p>Este post irá guiá-lo à configurar vários domínios e sites no seu ambiente local usando hosts virtuais do Apache em um servidor Ubuntu 20. O objetivo final é termos dois domínios locais para acesso: painel.local e checkout.local</p>
+      <p>Fracionei esse tutorial em 7 passos, bora lá! Que a força esteja com você.</p>
+      <h2>1 - Criar a estrutura de diretório</h2>
+<pre>sudo mkdir -p /var/www/html/painel/
+sudo mkdir -p /var/www/html/checkout/</pre>
+
+      <h2>2 - Criar páginas de demonstração para cada host virtual</h2>
+
+<pre>vi /var/www/html/painel/index.html</pre>
+
+      <p>Dentro desse arquivo, crie um documento HTML específico do domínio, como o seguinte:</p>
+
+<pre>&#60;html&#62;
+&#60;head&#62;
+&#60;title&#62;Painel Local&#60;/title&#62;
+&#60;/head&#62;
+&#60;body&#62;
+&#60;h1&#62;Success! The painel.local virtual host is working!&#60;/h1&#62;
+&#60;/body&#62;
+&#60;/html&#62;</pre>
+
+      <p>Salve e feche o arquivo e repita para o próximo arquivo.</p>
+
+<pre>vi /var/www/html/checkout/index.html</pre>
+
+<pre>&#60;html&#62;
+&#60;head&#62;
+&#60;title&#62;Checkout Local&#60;/title&#62;
+&#60;/head&#62;
+&#60;body&#62;
+&#60;h1&#62;Success! The checkout.local virtual host is working!&#60;/h1&#62;
+&#60;/body&#62;
+&#60;/html&#62;</pre>
+
+      <h2>3 - Criar arquivos do host virtual</h2>
+
+      <p>O Apache vem com um arquivo de host virtual padrão chamado 000-default.conf que usaremos como modelo. Vamos copiá-lo para criar um arquivo de host virtual para cada um dos nossos domínios.</p>
+
+<pre>sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/painel.conf</pre>
+
+      <p>Vamos personalizar esse arquivo para nosso próprio domínio</p>
+
+<pre>&#60;VirtualHost *:80&#62;
+ServerAdmin admin@example.com
+ServerName painel.local
+ServerAlias painel.local
+DocumentRoot /var/www/html/painel
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+&#60;/VirtualHost&#62;</pre>
+
+      <p>Neste ponto, salve e feche o arquivo.</p>
+      <p>Agora precisamos copiar o primeiro host virtual e personalizar para o segundo domínio</p>
+
+      <pre>sudo cp /etc/apache2/sites-available/painel.conf /etc/apache2/sites-available/checkout.conf</pre>
+
+<pre>sudo vi /etc/apache2/sites-available/checkout.conf</pre>
+
+      <h2>5 - Habilitar os novos arquivos de host virtual</h2>
+<pre>sudo a2ensite painel.conf
+sudo a2ensite checkout.conf</pre>
+
+      <p>Em seguida, desabilite o site padrão definido em 000-default.conf:</p>
+
+<pre>sudo a2dissite 000-default.conf</pre>
+
+      <p>Agora reinicie o Apache</p>
+
+<pre>sudo systemctl restart apache2</pre>
+
+      <h2>6 - Configurar o arquivo de hosts</h2>
+      <p>Podemos criar nossos próprios nomes de domínios para testar esse procedimento no nosso host local.</p>
+
+<pre>sudo vi /etc/hosts</pre>
+
+<pre>127.0.0.1 localhost
+127.0.0.1 painel.local
+127.0.0.1 checkout.local
+127.0.1.1 f0rmig4</pre>
+
+      <h2>7 - Hora de testar</h2>
+      <p>Agora que o nosso host virtual esta configurado é hora de acessar via navegador</p>
+
+      <p>http://painel.local</p>
+      <p>http://checkout.local</p>
+
+      <p>&nbsp;</p>
+      <p>Caso você queira se comunicar comigo, fica aqui meu contato na rede <a href="https://app.element.io/#/user/@f0rmig4:matrix.org" alt="matrix f0rmig4" target="_blanck">matrix</a> e/ou se preferir sinta-se à vontade para me enviar um e-mail em resposta a qualquer questão nesse post. Se você quiser criptografá-lo, aqui está minha <a href="/pgp">chave pgp</a></p>
+
+   </div>
+</article>
+
+{% include comments.html %}
+      
+      
+      
+      
+
+
+

@@ -1,0 +1,26 @@
+---
+title: projects
+permalink: /projects/
+layout: page
+excerpt: All projects.
+comments: false
+---
+
+<p>Transformar esforço e criatividade em realidade é algo fantástico.<br />Nesta página estão alguns desses esforços reunidos, onde trabalhei quase sempre de forma coletiva para forjar ideias.</p>
+
+{% assign sorted_projects = site.projects | sort: 'recent' | reverse %}
+{% assign counter = 0 %}
+
+<h2>Projetos recentes</h2>
+
+{%- for project in sorted_projects -%}
+  {% if project.recent == false and  counter == 0 %}
+    <h2>Velhos tempos...</h2>
+    {% assign counter=counter | plus:1 %}
+  {%- endif -%}
+  <article class="post-item">
+    <h3 class="post-item-title">
+      <a href="{{ project.url }}">~/ {{ project.title | escape }}</a>
+    </h3> 
+  </article>
+{%- endfor -%}

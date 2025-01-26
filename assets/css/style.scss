@@ -1,0 +1,31 @@
+---
+---
+
+@import "main";
+
+#invader {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+pre {
+    margin: 30px 0;
+    color: $dark-text-base-color;
+}
+
+.img-404 {
+    display: block;
+    max-width: 300px;
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.table-list {
+    table {
+        td:first-child{
+            width: 50%;
+        }
+    }
+}

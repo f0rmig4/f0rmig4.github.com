@@ -1,0 +1,135 @@
+---
+layout: page
+title: CI/CD com Django e Github Actions
+description: Esse é o quarto post da série Pipeline de CI/CD com Django e Github Actions, nesse post, vamos configurar um workflow para um projeto Django dentro da ferramenta do Github Actions
+tags: python django test unittest github git
+categories : posts/dev
+---
+
+<article>
+  <div class="post">
+    {% include shared.html %}
+
+    <p>Esse é o quarto post da série <strong>Pipeline de CI/CD com Django e Github Actions</strong>, nesse post, vamos configurar um workflow para um projeto Django dentro da ferramenta do Github Actions.</p>
+    <p>Confira a lista de todos os posts da série:</p>
+    <ul>
+      <li><a href="/pipeline-ci-cd-com-django-e-github-actions/">#1 Pipeline de CI/CD com Django e Github Actions</a></li>
+      <li><a href="/criando-um-app-com-django/">#2 Criando um app com Django</a></li>
+      <li><a href="/organizacao-de-testes-unitarios-com-django/">#3 Organização de testes unitários com Django</a></li>
+      <li><a href="/ci-cd-django-github-actions/">#4 CI/CD com Django e Github Actions</a></li>
+    </ul>
+
+    <p>Para facilitar a nossa vida, eu disponibilizei o projeto no meu Github.</p>
+    <pre>❯ git clone https://github.com/f0rmig4/pipeline-django.git</pre>
+
+    <p>Caso você ainda não tenha puxado seu repositório para o seu Github, agora é o momento, pois você precisará de um repositório para realizar o exercício.</p>
+
+    <h3>1 - Criando o Workflow:</h3>
+
+    <p>No seu repositório do github, acesse a aba "Actions"</p>
+    <p><a href="/assets/img/posts/2021/07/1.png" target="_blanck">Print 01</a></p>
+    <p>&nbsp;</p>
+
+    <p>Agora selecione a opção "Python application" e vamos realizar o setup do nosso workflow.</p>
+
+    <p>O Github Action fornece uma template pronta para diversos tipos de projetos, no nosso exemplo, o fluxo de trabalho irá instalar dependências do Python, executar testes e lint com uma única versão do Python.</p>
+
+    <p>Acabei apenas alterando o nome do fluxo de trabalho, modifiquei o teste, onde ele deve rodar os testes da app Django e por fim criei um passo a mais simulando a etapa onde iremos configurar nossa rotina de deploy.</p>
+
+    <p><a href="/assets/img/posts/2021/07/2.png" target="_blanck">Print 02</a></p>
+
+<pre>name: Django application
+on:
+push:
+  branches: [ develop ]
+pull_request:
+  branches: [ develop ]
+jobs:
+build:
+  runs-on: ubuntu-latest
+  steps:
+  - uses: actions/checkout@v2
+  - name: Set up Python 3.9
+    uses: actions/setup-python@v2
+    with:
+      python-version: 3.9
+  - name: Install dependencies
+    run: |
+      python -m pip install --upgrade pip
+      pip install flake8 pytest
+      if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+  - name: Lint with flake8
+    run: |
+      # stop the build if there are Python syntax errors or undefined names
+      flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+      # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+      flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+  - name: Test with pytest
+    run: |
+      python manage.py test
+  - name: Run Deploy
+    run: |
+      echo '...'</pre>
+
+
+    <p>Depois de configurada sua rotina, é necessário salvar seu arquivo, então basta apenas clicar no botão "Start commit. Essa ação vai abrir um modal onde você pode inserir mais informações. Por fim click no botão "Commit new file"</p>
+
+    <p><a href="/assets/img/posts/2021/07/3.png" target="_blanck">Print 03</a></p>
+    <p>&nbsp;</p>
+
+    <p>Parabéns, criamos nosso workflow e ele fica salvo no seu repositório no caminho: .github/workflows/python-app.yml
+
+    <p><a href="/assets/img/posts/2021/07/4.png" target="_blanck">Print 04</a></p>
+    <p>&nbsp;</p>
+
+    <p>Ainda devemos observar que será necessário criar o arquivo requirements.txt para instalar as dependências. </p>
+
+    <p>Baixe as alterações e criei um novo branch a partir do branch develop</p>
+
+<pre>❯ git pull origin develop
+❯ git branch feature/requirement
+❯ git checkout feature/requirement</pre>
+
+    Agora vamos criar nosso requirement:
+
+<pre>❯ touch requirements.txt
+❯ echo "django" >> requirements.txt</pre>
+
+    <p>&nbsp;</p>
+    <h3>2 - Gerando um PR:</h3>
+
+    <p>Vamos agora dar um push na nossa branch e criar um pull request no nosso repositório</p>
+
+<pre>❯ git add requirements.txt
+❯ git commit -m 'Create requirements' .
+❯ git push origin feature/requirement</pre>
+
+    <p>Vamos retornar ao Github e ele vai nos informar que temos um novo branch.</p>
+    <p>Precisamos fazer um compair e um pull request</p>
+
+    <p><a href="/assets/img/posts/2021/07/5.png" target="_blanck">Print 05</a></p>
+    <p>&nbsp;</p>
+
+    <p>Ponha uma mensagem se achar necessário e criei o pull request</p>
+
+    <p><a href="/assets/img/posts/2021/07/6.png" target="_blanck">Print 06</a></p>
+    <p>&nbsp;</p>
+
+    <p>Agora somos redirecionados para uma tela onde podemos acompanhar todos os passos da nossa workflow em tempo real.</p>
+
+    <p><a href="/assets/img/posts/2021/07/7.png" target="_blanck">Print 07</a></p>
+    <p>&nbsp;</p>
+
+    <p>Além de permanecer um histórico de deploys toda vez que roda uma nova publicação os emails cadastrados no repositório irão receber um email de notificação.</p>
+
+    <p>Tem uma pegadinha, eu não configurei a rotina para realizar o deploy da aplicação, apenas exemplifiquei o passo do nosso workflow onde ficaria essa etapa. Quem sabe para um próximo post eu criei um novo tutorial de como configurar o deploy para o Heroku.</p>
+
+    <p>Então, chegamos ao fim de toda a nossa jornada, passamos por uma abordagem teórica e construímos toda uma simples pipeline utilizando Django, Github e Github Action.</p>
+    <p>Qualquer dúvida não deixe de perguntar.</p>
+
+    <p>Que a força esteja com vocês!</p>
+
+  </div>
+</article>
+
+{% include comments.html %}

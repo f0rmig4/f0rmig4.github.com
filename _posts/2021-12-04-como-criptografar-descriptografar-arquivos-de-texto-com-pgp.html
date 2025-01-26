@@ -1,0 +1,82 @@
+---
+layout: page
+title: Como criptografar/descriptografar arquivos de texto com pgp
+description: No post passado vimos conceitos básicos do PGP (Pretty Good Privacy) e também exercitamos uma maneira de gerenciar nossas chaves via terminal. Nesse artigo darei os passos de como criptografar e descriptografar arquivos físicos de textos.
+tags: safety privacity
+categories : posts/privacity
+---
+
+<article>
+   <div class="post">
+      {% include shared.html %}
+
+      <p>Buenas povo desse ciberespaço, esse é o terceiro e último post da série <strong>"criptografando mensagens com gpg"</strong>. No post passado vimos conceitos básicos do PGP (Pretty Good Privacy) e também exercitamos uma maneira de gerenciar nossas chaves via terminal. Nesse artigo darei os passos de como criptografar e descriptografar arquivos físicos de textos.</p>
+      
+      <p>Confira a lista de todos os posts da série:</p>
+      <ul>
+            <li><a href="/neommut-configurando-cliente-de-email-por-linha-de-comando/">#1 Neommut - Configurando cliente de email por linha de comando</a></li>
+            <li><a href="/como-gerenciar-suas-chaves-pgp/">#2 Como gerenciar suas chaves PGP</a></li>
+            <li><a href="/como-criptografar-descriptografar-arquivos-de-texto-com-pgp/">#3 Como criptografar/descriptografar arquivos de texto com pgp</a></li>
+      </ul>
+
+      <h2>Cenário</h2>
+      <p>Pensaremos em um cenário hipotético onde queremos enviar uma mensagem secreta para um contato chamado "Batata" e para isso queremos apenas disponibilizar um arquivo em um site onde somente ele consiga ler o conteúdo dessa mensagem.</p>
+      <p>Bem vamos lá, mão na massa.
+
+      <h2>Encriptando a menagem</h2>
+      <p>Antes de criptografar o seu arquivo você tem que ter certeza que já importou a chave de seu contato. Para listar todas as chaves, basta rodar o comando:</p>
+
+      <pre>$ gpg -k</pre>
+
+      <p>Para importar a chave de um contato pode-se usar o comando:</p>
+      <pre>$ gpg --import batata-pubkey.asc</pre>
+
+      <p>Agora criaremos um arquivo de texto com sua mensagem secreta:</p>
+
+      <pre>$ vi message.txt</pre>
+
+      <p>Escreva sua mensagem no corpo do arquivo, salve e saia. Em seguida aplicamos a criptografia com o comando:</p>
+
+<pre>$ gpg --output response-crypt.txt --encrypt --recipient batata@tutanota.com mensagem.txt
+
+gpg: 7E0697BE9A686DF6: There is no assurance this key belongs to the named user
+
+sub  rsa4096/7E0697BE9A686DF6 2021-10-26 Batata <batata@tutanota.com>
+Primary key fingerprint: 8523 7163 6848 6BAF E9EA  15E1 F968 E85F D0F6 FEBD
+      Subkey fingerprint: 6D1D 7606 6822 BA40 923D  B591 7E06 97BE 9A68 6DF6
+
+It is NOT certain that the key belongs to the person named
+in the user ID.  If you *really* know what you are doing,
+you may answer the next question with yes.
+
+Use this key anyway? (y/N) y</pre>
+
+
+      <p>Caso você não tenha assinado a chave do seu contato, você sera questionado se essa chave é realmente segura, caso você confie na chave pode confirmar.</p>
+      <p>Analisando o comando vimos que passamos três parâmetros o arquivo de saída, o ID do contato, que nesse exemplo é um e-mail e o arquivo com a mensagem de texto.</p>
+      <p>O output do comando sera um arquivo criptografado response-crypt.txt e agora apenas o seu contato irá conseguir visualizar o conteúdo dessa mensagem, pois na teoria apenas ele é detentor da chave.</p>
+
+      <h2>Descriptografando</h2>
+
+      <p>Bem digamos que o nosso companheiro Batata respondeu sua mensagem, lê envio um arquivo criptografado chamado hello.txt. Agora chega a hora de abrir e analisarmos o conteúdo dessa mensagem:</p>
+
+<pre>$ gpg --output me.txt --decrypt hello.txt
+gpg: encrypted with 3072-bit RSA key, ID A2FFBA6B29AE57D9, created 2021-11-14
+"f0rmig4 <f0rmig4@riseup.net>"</pre>
+
+      <p>No primeiro parâmetro do comando informamos o arquivo de saída e no segundo passamos o arquivo que queremos descriptografar.</p>
+      <p>Podemos ler a mensagem com um cat via terminal:</p>
+
+      <pre>$ cat me.txt</pre>
+
+      <h2>Conclusão</h2>
+
+      <p>Há uma variedade de soluções disponíveis para implementar diferentes tipos de técnicas de criptografia. Ferramentas como TrueCrypt e VeraCrypt são usadas para criptografar discos rígidos e partições, mas estas não são eficientes para a criptografia geral de arquivos ou documentos.  Em um mundo onde a praticidade é o foco a privacidade é muito menor.</p>
+
+      <p>GPG é uma ferramenta livre e fácil de usar que pode ser usada para criptografar arquivos secretos usando criptografia assimétrica segura que não pode ser facilmente quebrada.</p>
+
+      <p>Seguimos caminhando e que a força esteja com você.</p>
+   </div>
+</article>
+
+{% include comments.html %}

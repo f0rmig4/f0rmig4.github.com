@@ -1,0 +1,65 @@
+---
+layout: page
+title: Documentando sua API com Open API (Swagger) e Redoc no DRF
+description: Neste post, quero mostrar como podemos criar documentação de uma API de forma automatizada usando Open API, Redoc e Django Rest Framework, também conhecido como DRF. Para fazer isso, vou usar a biblioteca drf-yasg
+tags: python django documentation tips
+categories : posts/dev
+---
+
+<article>
+  <div class="post">
+    {% include shared.html %}
+
+    <p>Uma maneira ágil de compartilhar e manter os serviços de uma API para diversas equipes é através de uma documentação aberta.</p>
+    <p>Neste post, quero mostrar como podemos criar documentação de uma API de forma automatizada usando Open API, Redoc e Django Rest Framework, também conhecido como DRF. Para fazer isso, vou usar a biblioteca <a href="https://github.com/axnsan12/drf-yasg">drf-yasg</a><p>
+
+    <h2>1) Instale a biblioteca</h2>
+
+    <pre>pip install drf-yasg</pre>
+
+    <h2>2) Configure o projeto:</h2>
+    <p>Primeiro altere seu <strong>settings.py</strong> acrescentando o biblioteca.</p>
+
+<pre>INSTALLED_APPS = [
+...
+'django.contrib.staticfiles',  # required for serving swagger ui's css/js files
+'drf_yasg',
+...
+]</pre>
+
+
+<p>Agora basta apenas adicionar essas entradas abaixo no seu arquivo <strong>urls.py</strong></p>
+
+<pre>...
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+...
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Snippets API",
+      default_version='v1',
+      description="Test description",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@snippets.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=[permissions.AllowAny],
+)
+
+urlpatterns = [
+   url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+   url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+   url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+   ...
+]</pre>
+
+<p>É isso, sem mais delongas!<p>
+<p>Por favor, se gostou compartilhe com a comunidade essa dica. Que a força esteja com você.</p>
+
+  </div>
+</article>
+
+{% include comments.html %}

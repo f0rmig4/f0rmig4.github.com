@@ -31,7 +31,9 @@
 Run local server:
 
 ```bash
-$ docker run --rm -v "$PWD":/srv/jekyll -p 4000:4000 jekyll/jekyll jekyll serve
+docker build -t my-jekyll-site .
+docker run --rm -v "$PWD":/srv/jekyll -p 4000:4000 my-jekyll-site
+
 ```
 
 Navigate to `localhost:4000`. You're Welcome, Fork and be Stargazer.

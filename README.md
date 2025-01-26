@@ -31,8 +31,7 @@
 Run local server:
 
 ```bash
-$ bundle install
-$ bundle exec jekyll serve
+$ docker run --rm -v "$PWD":/srv/jekyll -p 4000:4000 jekyll/jekyll jekyll serve
 ```
 
 Navigate to `localhost:4000`. You're Welcome, Fork and be Stargazer.
